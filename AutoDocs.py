@@ -4,6 +4,8 @@ import customtkinter
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = customtkinter.CTk() # Crear ventana vacía
+ICON_LIGHT = os.path.join(BASE_DIR, "AutoDocsLight.ico")
+ICON_DARK = os.path.join(BASE_DIR, "AutoDocsDark.ico")
 
 def crearTexto(app, contenido, letra, tamano):
     label = customtkinter.CTkLabel(app,
@@ -23,13 +25,15 @@ def cambiar_tema():
     actual = customtkinter.get_appearance_mode()
     if actual == "Dark":
         customtkinter.set_appearance_mode("Light")
+        app.iconbitmap(ICON_LIGHT)
     else:
         customtkinter.set_appearance_mode("Dark")
+        app.iconbitmap(ICON_DARK)
 
 def menu():
     # Inicializar ventana
     customtkinter.set_appearance_mode("Dark")
-    app.iconbitmap(os.path.join(BASE_DIR, 'AutoDocs.ico')) # Cambiar icono
+    app.iconbitmap(ICON_DARK) # Cambiar icono
     app.title("AutoDocs") # Cambiar titulo de la ventana
     
     # Tamaño de la ventana
