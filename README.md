@@ -15,5 +15,7 @@ Aplicación para automatizar la creación de documentos Word repetitivos.
 
 ## Como ejecutar
 1. Clonar el repositorio con "git clone https://www.github.com/Bayron-jpg/V2-AutoDocs".
-2. Instalar la dependencia con el comando "pip install customtkinter".
-3. Ejecutar el archivo "AutoDocs.py" y navegar por la aplicación.
+2. Instalar la dependencias con los comandos:
+- pip install customtkinter
+- pip install docx2pdf
+4. Ejecutar el archivo "AutoDocs.py" y navegar por la aplicación.
