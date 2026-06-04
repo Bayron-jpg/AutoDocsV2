@@ -43,32 +43,58 @@ def menu():
 
     # ------------ Ajustes personalizados de la ventana ------------
     # --- Posiciones ---
-    POS_TITULO = (0.31, 0.06)
-    POS_TEMA = (0.04, 0.07)
+    POS_TITULO = (0.20, 0.19)
+    POS_TEMA = (0.03, 0.05)
     POS_SALIR = (0.62, 0.76)
     POS_ACERCA = (0.20, 0.76)
-    
-    # Titulo AutoDocs
-    titulo = crearTexto(app, "Bienvenido(a) a AutoDocs", "Consolas", 27)
-    titulo.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
+    POS_CREAR = (0.12, 0.45)
+    POS_CONVERTIR = (0.54, 0.45)
     
     # Ajustes del Tema (Modo Claro-Oscuro)
     cambiarTema = customtkinter.CTkButton(app,
-                            text="Cambiar Tema",                   # Texto del botón
-                            command=cambiar_tema,                  # Función a realizar
-                            text_color=("black","white"),          # Color del texto
-                            fg_color=("#cecece","gray"),         # Color del botón
-                            hover_color=("#c0c0c0","#666666")) # Color sobre el mouse
+        text="Cambiar Tema",                   # Texto del botón
+        command=cambiar_tema,                  # Función a realizar
+        text_color=("black","white"),          # Color del texto
+        fg_color=("#cecece","gray"),         # Color del botón
+        hover_color=("#c0c0c0","#666666")) # Color sobre el mouse
     cambiarTema.place(relx=POS_TEMA[0], rely=POS_TEMA[1])
+
+    # Titulo AutoDocs
+    titulo = crearTexto(app, "Bienvenido(a) a AutoDocs", "Consolas", 36)
+    titulo.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
+    
+    # Botón Crear Plantilla (Azul, grande, izquierda)
+    botonCrear = customtkinter.CTkButton(app,
+        text="Crear Plantilla",
+        command=None,
+        fg_color="#2980b9",
+        hover_color="#1a6a9a",
+        text_color=("#f0f0f0","white"),
+        width=270,
+        height=110,
+        font=("Consolas", 24))
+    botonCrear.place(relx=POS_CREAR[0], rely=POS_CREAR[1])
+
+    # Botón Convertir a PDF (Naranja-rojo, grande, derecha del anterior)
+    botonConvertir = customtkinter.CTkButton(app,
+        text="Convertir a PDF",
+        command=None,
+        fg_color="#e05a2b",
+        hover_color="#b84a20",
+        text_color=("#f0f0f0","white"),
+        width=270,
+        height=110,
+        font=("Consolas", 24))
+    botonConvertir.place(relx=POS_CONVERTIR[0], rely=POS_CONVERTIR[1])
     
     # Botón Acerca De
     botonAcercaDe = customtkinter.CTkButton(app,
-                                       text = "Acerca de",                    # Texto del botón
-                                       command=acercaDe,                      # Función a realizar
-                                       fg_color=("#cecece","gray"),         # Color del botón
-                                       hover_color=("#c0c0c0","#666666"), # Color sobre el mouse
-                                       text_color=("black","white"),          # Color del texto
-                                       height=35)          
+        text = "Acerca de",                    # Texto del botón
+        command=acercaDe,                      # Función a realizar
+        fg_color=("#cecece","gray"),         # Color del botón
+        hover_color=("#c0c0c0","#666666"), # Color sobre el mouse
+        text_color=("black","white"),          # Color del texto
+        height=35)          
     botonAcercaDe.place(relx=POS_ACERCA[0], rely=POS_ACERCA[1])
     
     # Cerrar el programa (Botón de Salir)
@@ -76,12 +102,12 @@ def menu():
         if messagebox.askyesno("Salir", "¿Está seguro(a) que desea salir?"):
             app.destroy()
     botonSalir = customtkinter.CTkButton(app,
-                text="Salir",            # Título de la ventana
-                command=salir,           # Función a ejecutar
-                fg_color="#ba6258",    # Rojo
-                hover_color="#7f342d", # Rojo oscuro al pasar el mouse
-                text_color="white",   # Color del texto
-                height=35)      # Alto en píxeles
+        text="Salir",            # Título de la ventana
+        command=salir,           # Función a ejecutar
+        fg_color="#ba6258",    # Rojo
+        hover_color="#7f342d", # Rojo oscuro al pasar el mouse
+        text_color="white",   # Color del texto
+        height=35)      # Alto en píxeles
     botonSalir.place(relx=POS_SALIR[0], rely=POS_SALIR[1])
 
     app.mainloop() # Loop que mantiene la ventana abierta
@@ -123,8 +149,8 @@ def acercaDe():
         ventana_acerca,
         text="Aplicación para automatizar la creación\n"
              "de documentos Word repetitivos.\n\n"
-            "Proyecto personal desarrollado con\n"
-            "Python y CustomTkinter.\n\n\n"
+            "Proyecto personal desarrollado en\n"
+            "Python.\n\n\n"
             "Desarrollado por:\n"
             "Bayron Urrutia\n\n"
             "© 2026",
