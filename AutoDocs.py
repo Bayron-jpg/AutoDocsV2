@@ -117,14 +117,13 @@ def menu():
 
 def crearPlantilla():
     # --- Posiciones ---
-    POS_AUTODOCS = (0.35, 0.03)
-    POS_SUBTITULO = (0.35, 0.09)
+    POS_TITULO = (0.28, 0.05)
     POS_TEXTOACERCADE = (0.07, 0.21)
-    POS_SALIR = (0.32, 0.83)
+    POS_VOLVER = (0.43, 0.83)
     
     global ventana_plantilla
 
-    if ventana_plantilla is None or not ventana_acerca.winfo_exists():
+    if ventana_plantilla is None or not ventana_plantilla.winfo_exists():
         # ------ Crear y ajustar ventana ------
         ventana_plantilla = customtkinter.CTkToplevel(app)
         ventana_plantilla.transient(app)             # Vincula a la ventana principal
@@ -135,7 +134,7 @@ def crearPlantilla():
 
         # Ajustes de la ventana
         ancho = 1000
-        alto = 500
+        alto = 600
         x = app.winfo_x() + (app.winfo_width() - ancho) // 2
         y = app.winfo_y() + (app.winfo_height() - alto) // 2
         ventana_plantilla.geometry(f"{ancho}x{alto}+{x}+{y}")
@@ -147,11 +146,8 @@ def crearPlantilla():
         icono = ICON_DARK if customtkinter.get_appearance_mode() == "Dark" else ICON_LIGHT
         ventana_plantilla.after(200, lambda: ventana_plantilla.iconbitmap(icono)) # Espera 200ms para cambiar el icono
         
-        autoDocs = crearTexto(ventana_plantilla, "AutoDocs", "Consolas", 28)
-        autoDocs.place(relx=POS_AUTODOCS[0], rely=POS_AUTODOCS[1])
-        
-        subtitulo = crearTexto(ventana_plantilla, "Versión 1.0.0", "Consolas", 16)
-        subtitulo.place(relx=POS_SUBTITULO[0], rely=POS_SUBTITULO[1])
+        autoDocs = crearTexto(ventana_plantilla, "Crear Plantilla de Documentos", "Consolas", 28)
+        autoDocs.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
         
         texto = customtkinter.CTkLabel(
             ventana_plantilla,
@@ -160,24 +156,23 @@ def crearPlantilla():
             justify="left")        # Alineamiento del texto a la izquierda
         texto.place(relx=POS_TEXTOACERCADE[0], rely=POS_TEXTOACERCADE[1])
         
-        botonSalir = customtkinter.CTkButton(ventana_plantilla,
-                text="Cerrar",                     # Título de la ventana
+        botonVolver = customtkinter.CTkButton(ventana_plantilla,
+                text="Volver",                     # Título de la ventana
                 command=ventana_plantilla.destroy, # Función a ejecutar
                 fg_color="#ba6258",              # Color del botón
                 hover_color="#7f342d",           # Color sobre el mouse
                 text_color="white",                # Color del texto
                 height=35)                         # Alto del botón
-        botonSalir.place(relx=POS_SALIR[0], rely=POS_SALIR[1])
+        botonVolver.place(relx=POS_VOLVER[0], rely=POS_VOLVER[1])
         
     else:
         ventana_plantilla.focus()
         
 def convertirPdf():
     # --- Posiciones ---
-    POS_AUTODOCS = (0.35, 0.03)
-    POS_SUBTITULO = (0.35, 0.09)
+    POS_TITULO = (0.39, 0.05)
     POS_TEXTOACERCADE = (0.07, 0.21)
-    POS_SALIR = (0.32, 0.83)
+    POS_VOLVER = (0.43, 0.83)
     
     global ventana_pdf
 
@@ -191,8 +186,8 @@ def convertirPdf():
         ventana_pdf.resizable(False, False)     # Impide agrandar o achicar la ventana
 
         # Ajustes de la ventana
-        ancho = 400
-        alto = 500
+        ancho = 1000
+        alto = 600
         x = app.winfo_x() + (app.winfo_width() - ancho) // 2
         y = app.winfo_y() + (app.winfo_height() - alto) // 2
         ventana_pdf.geometry(f"{ancho}x{alto}+{x}+{y}")
@@ -204,33 +199,24 @@ def convertirPdf():
         icono = ICON_DARK if customtkinter.get_appearance_mode() == "Dark" else ICON_LIGHT
         ventana_pdf.after(200, lambda: ventana_pdf.iconbitmap(icono)) # Espera 200ms para cambiar el icono
         
-        autoDocs = crearTexto(ventana_pdf, "AutoDocs", "Consolas", 28)
-        autoDocs.place(relx=POS_AUTODOCS[0], rely=POS_AUTODOCS[1])
-        
-        subtitulo = crearTexto(ventana_pdf, "Versión 1.0.0", "Consolas", 16)
-        subtitulo.place(relx=POS_SUBTITULO[0], rely=POS_SUBTITULO[1])
+        autoDocs = crearTexto(ventana_pdf, "Convertir a PDF", "Consolas", 28)
+        autoDocs.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
         
         texto = customtkinter.CTkLabel(
             ventana_pdf,
-            text="Aplicación para automatizar la creación\n"
-                "de documentos Word repetitivos.\n\n"
-                "Proyecto personal desarrollado en\n"
-                "Python.\n\n\n"
-                "Desarrollado por:\n"
-                "Bayron Urrutia\n\n"
-                "© 2026",
+            text="Ventana de Convertir a PDF",
             font=("Consolas", 16), # Tamaño y tipo de letra
             justify="left")        # Alineamiento del texto a la izquierda
         texto.place(relx=POS_TEXTOACERCADE[0], rely=POS_TEXTOACERCADE[1])
         
-        botonSalir = customtkinter.CTkButton(ventana_pdf,
-                text="Cerrar",               # Título de la ventana
+        botonVolver = customtkinter.CTkButton(ventana_pdf,
+                text="Volver",               # Título de la ventana
                 command=ventana_pdf.destroy, # Función a ejecutar
                 fg_color="#ba6258",        # Color del botón
                 hover_color="#7f342d",     # Color sobre el mouse
                 text_color="white",          # Color del texto
                 height=35)                   # Alto del botón
-        botonSalir.place(relx=POS_SALIR[0], rely=POS_SALIR[1])
+        botonVolver.place(relx=POS_VOLVER[0], rely=POS_VOLVER[1])
         
     else:
         ventana_pdf.focus()
@@ -270,9 +256,6 @@ def acercaDe():
         autoDocs = crearTexto(ventana_acerca, "AutoDocs", "Consolas", 28)
         autoDocs.place(relx=POS_AUTODOCS[0], rely=POS_AUTODOCS[1])
         
-        subtitulo = crearTexto(ventana_acerca, "Versión 1.0.0", "Consolas", 16)
-        subtitulo.place(relx=POS_SUBTITULO[0], rely=POS_SUBTITULO[1])
-        
         texto = customtkinter.CTkLabel(
             ventana_acerca,
             text="Aplicación para automatizar la creación\n"
@@ -287,7 +270,7 @@ def acercaDe():
         texto.place(relx=POS_TEXTOACERCADE[0], rely=POS_TEXTOACERCADE[1])
         
         botonSalir = customtkinter.CTkButton(ventana_acerca,
-                text="Cerrar",                  # Título de la ventana
+                text="Volver",                  # Título de la ventana
                 command=ventana_acerca.destroy, # Función a ejecutar
                 fg_color="#ba6258",           # Color del botón
                 hover_color="#7f342d",        # Color sobre el mouse
