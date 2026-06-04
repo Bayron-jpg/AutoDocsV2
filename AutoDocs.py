@@ -82,7 +82,7 @@ def menu():
         text="Convertir a PDF",          # Texto del botón
         command=convertirPdf,            # Función a realizar
         fg_color="#e05a2b",            # Color del botón
-        hover_color="#b84a20",         # Color sobre el mouse
+        hover_color="#84371B",         # Color sobre el mouse
         text_color=("#f0f0f0","white"),# Color del texto
         width=270,                       # Ancho del botón
         height=110,                      # Alto del botón
@@ -107,8 +107,8 @@ def menu():
     botonSalir = customtkinter.CTkButton(app,
         text="Salir",            # Título de la ventana
         command=salir,           # Función a ejecutar
-        fg_color="#ba6258",    # Color del botón
-        hover_color="#7f342d", # Color sobre el mouse
+        fg_color="#ba5858",    # Color del botón
+        hover_color="#7f2d2d", # Color sobre el mouse
         text_color="white",      # Color del texto
         height=35)               # Alto del botón
     botonSalir.place(relx=POS_SALIR[0], rely=POS_SALIR[1])
