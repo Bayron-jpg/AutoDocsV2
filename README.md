@@ -9,8 +9,8 @@ Aplicación para automatizar la creación de documentos Word repetitivos.
 | Dependencia | Uso |
 | ----------- | --- |
 | CustomTKinter | Creación de la interfaz gráfica. |
+| Docx2Pdf | Transformar documentos Word a PDF. |
 <!-- | Python-docx | Creación de documentos Word. | -->
-<!-- | Docx2Pdf | Transformar documentos Word a PDF. | -->
 <!-- | PyInstaller | Comprimir archivos .py a .exe| -->
 
 ## Como ejecutar
