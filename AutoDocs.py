@@ -148,7 +148,7 @@ def acercaDe():
         texto = customtkinter.CTkLabel(
         ventana_acerca,
         text="Aplicación para automatizar la creación\n"
-             "de documentos Word repetitivos.\n\n"
+            "de documentos Word repetitivos.\n\n"
             "Proyecto personal desarrollado en\n"
             "Python.\n\n\n"
             "Desarrollado por:\n"
