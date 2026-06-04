@@ -7,4 +7,4 @@
 | Python-docx   | Documentos        |
 | CustomTKinter | Interfaz          |
 | Docx2Pdf      | Transformar a PDF |
-| PyInstaller   | Comprimir a .exe  |
+| PyInstaller   | Comprimir el archivo a .exe  |
