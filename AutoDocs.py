@@ -162,7 +162,7 @@ def acercaDe():
                 "© 2026",
             font=("Consolas", 16), # Tamaño y tipo de letra
             justify="left")        # Alineamiento del texto a la izquierda
-            texto.place(relx=POS_TEXTOACERCADE[0], rely=POS_TEXTOACERCADE[1])
+        texto.place(relx=POS_TEXTOACERCADE[0], rely=POS_TEXTOACERCADE[1])
         
         botonSalir = customtkinter.CTkButton(ventana_acerca,
                 text="Cerrar",                  # Título de la ventana
