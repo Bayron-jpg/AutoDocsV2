@@ -176,7 +176,7 @@ def crearPlantilla():
 
         return p
     
-    def generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor):
+    def generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura):
         textoTitulo = tituloDoc.get().strip()
         if not textoTitulo:
             messagebox.showwarning("Campo vacío", "Por favor, escriba un título antes de generar el documento.")
@@ -187,6 +187,8 @@ def crearPlantilla():
         textoEstudiantes = estudiantes.get().strip()
         
         textoProfesor = profesor.get().strip()
+        
+        textoAsignatura = asignatura.get().strip()
         
         ruta = os.path.join(BASE_DIR, "Documento.docx")
         doc = Document()
@@ -224,6 +226,9 @@ def crearPlantilla():
         
         # === Texto Profesor(a) ===
         agregar_linea(doc, "Profesor(a): ", textoProfesor)
+        
+        # === Texto Asignatura ===
+        agregar_linea(doc, "Asignatura: ", textoAsignatura)
 
         
         doc.save(ruta)
@@ -254,6 +259,9 @@ def crearPlantilla():
         
         # Para profesor (límite 44)
         cmd_profesor = (ventana_plantilla.register(lambda p: verificar_largo(p, 44)), '%P')
+        
+        # Para asignatura (límite 44)
+        cmd_asignatura = (ventana_plantilla.register(lambda p: verificar_largo(p, 44)), '%P')
 
         # Ajustes de la ventana
         ancho = 800
@@ -343,7 +351,9 @@ def crearPlantilla():
             ventana_plantilla,
             placeholder_text="Ej: Fundamentos de Software",
             width=200,
-            height=35)
+            height=35,
+            validate="key",
+            validatecommand=cmd_asignatura)  # límite 44
         asignatura.place(relx=POS_ASIGNATURA[0], rely=POS_ASIGNATURA[1])
 
         textoSeccion = crearTexto(ventana_plantilla,
@@ -361,7 +371,7 @@ def crearPlantilla():
 
         botonGenerarDoc = customtkinter.CTkButton(ventana_plantilla,
                 text="Generar Plantilla",             # Nombre del botón
-                command=lambda: generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor),# Función a ejecutar
+                command=lambda: generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura),# Función a ejecutar
                 fg_color="#437791",                 # Color del botón
                 hover_color="#386379",              # Color sobre el mouse
                 text_color="white",                   # Color del texto
