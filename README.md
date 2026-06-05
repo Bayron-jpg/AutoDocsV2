@@ -22,14 +22,13 @@ Aplicación para automatizar la creación de documentos Word repetitivos.
 3. Ejecutar el archivo "AutoDocs.py" y navegar por la aplicación.
 
 ## Screenshots / Preview
-1. Portada Modo Oscuro
+- Menu (Oscuro)
 <img width="800" height="500" alt="1" src="https://github.com/user-attachments/assets/bc97b508-bc43-48c5-ac42-93a5f7cf4c97" />
 
-2. Portada Modo Claro
+- Menu (Claro)
 <img width="800" height="500" alt="2" src="https://github.com/user-attachments/assets/85595b7a-c382-4875-a4e0-95aa4b58673a" />
 
-3. Convertir a PDF
+- Convertir a PDF
 <img width="800" height="500" alt="3" src="https://github.com/user-attachments/assets/a4957677-dfbc-4b8d-94b3-e4d709f35a6a" />
 
-4. Document convertido
 <img width="800" height="500" alt="4" src="https://github.com/user-attachments/assets/923bff7a-c7d2-4e01-a338-b2046ab018b6" />
