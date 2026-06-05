@@ -23,13 +23,13 @@ Aplicación para automatizar la creación de documentos Word repetitivos.
 
 ## Screenshots / Preview
 1. Portada Modo Oscuro
-<img width="1920" height="1080" alt="Portada Modo Oscuro" src="https://github.com/user-attachments/assets/b0fa4882-8cd2-4b2c-8015-fed681b73cfa" />
+<img width="800" height="500" alt="1" src="https://github.com/user-attachments/assets/bc97b508-bc43-48c5-ac42-93a5f7cf4c97" />
 
 2. Portada Modo Claro
-<img width="1920" height="1080" alt="Portada Modo Claro" src="https://github.com/user-attachments/assets/288c8cba-ede4-475e-a0c9-f03ebc617e5a" />
+<img width="800" height="500" alt="2" src="https://github.com/user-attachments/assets/85595b7a-c382-4875-a4e0-95aa4b58673a" />
 
 3. Convertir a PDF
-<img width="1920" height="1080" alt="Convertir a PDF" src="https://github.com/user-attachments/assets/9781211b-94ab-4bce-ac6d-8972b0fc1451" />
+<img width="800" height="500" alt="3" src="https://github.com/user-attachments/assets/a4957677-dfbc-4b8d-94b3-e4d709f35a6a" />
 
 4. Document convertido
-<img width="1920" height="1080" alt="Documento Convertido" src="https://github.com/user-attachments/assets/56322911-330c-46ef-9025-a989c4fb4ec5" />
+<img width="800" height="500" alt="4" src="https://github.com/user-attachments/assets/923bff7a-c7d2-4e01-a338-b2046ab018b6" />
