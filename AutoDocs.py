@@ -440,7 +440,8 @@ def acercaDe():
             text="Aplicación para automatizar la creación\n"
                 "de documentos Word repetitivos.\n\n"
                 "Proyecto personal desarrollado en\n"
-                "Python.\n\n\n"
+                "Python con CustomTkinter, Python-Docx y\n"
+                "Docx2Pdf.\n\n\n"
                 "Desarrollado por:\n"
                 "Bayron Urrutia\n\n"
                 "© 2026",
