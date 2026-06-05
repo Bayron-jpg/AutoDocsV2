@@ -127,9 +127,9 @@ def menu():
 
 def crearPlantilla():
     # --- Posiciones ---
-    POS_TITULO = (0.28, 0.05)
+    POS_TITULO = (0.22, 0.05)
     POS_TEXTOACERCADE = (0.07, 0.21)
-    POS_VOLVER = (0.43, 0.83)
+    POS_VOLVER = (0.41, 0.83)
     
     global ventana_plantilla
 
@@ -143,8 +143,8 @@ def crearPlantilla():
         ventana_plantilla.resizable(False, False)    # Impide agrandar o achicar la ventana
 
         # Ajustes de la ventana
-        ancho = 1000
-        alto = 600
+        ancho = 800
+        alto = 500
         x = app.winfo_x() + (app.winfo_width() - ancho) // 2
         y = app.winfo_y() + (app.winfo_height() - alto) // 2
         ventana_plantilla.geometry(f"{ancho}x{alto}+{x}+{y}")
