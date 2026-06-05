@@ -247,7 +247,7 @@ def crearPlantilla():
         
         seccion = customtkinter.CTkEntry(
             ventana_plantilla,
-            placeholder_text="Ej: RQY1101-008D",
+            placeholder_text="(Opcional) Ej: 008D",
             width=200,
             height=35)
         seccion.place(relx=POS_SECCION[0], rely=POS_SECCION[1])
