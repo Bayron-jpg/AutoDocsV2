@@ -137,7 +137,7 @@ def crearPlantilla():
     POS_TITULO = (0.22, 0.06)
     POS_GENERARPLANTILLA = (0.7, 0.70)
     POS_VOLVER = (0.41, 0.83)
-    POS_TEXTOTITULO = (0.10, 0.20)
+    POS_TEXTOTITULO = (0.09, 0.20)
     POS_TITULODOC = (0.10, 0.26)
     POS_TEXTOSUBTITULO = (0.38, 0.20)
     POS_SUBTITULODOC = (0.38, 0.26)
@@ -152,16 +152,23 @@ def crearPlantilla():
 
     global ventana_plantilla
     
-    def verificar_largo(texto_futuro):
-        LIMITE = 60
-        # Retorna True si el texto resultante mide LIMITE o menos, de lo contrario lo bloquea (False)
-        return len(texto_futuro) <= LIMITE
+    def verificar_largo(texto_futuro, limite):
+        return len(texto_futuro) <= limite
     
-    def generarDoc(tituloDoc):
+    def estilo(run, size=16, bold=False):
+        run.font.name = "Arial"
+        run._element.rPr.rFonts.set(qn('w:eastAsia'), 'Arial')
+        run.font.size = Pt(size)
+        run.font.color.rgb = RGBColor(0, 0, 0)
+        run.bold = bold
+    
+    def generarDoc(tituloDoc, subtituloDoc):
         textoTitulo = tituloDoc.get().strip()
         if not textoTitulo:
             messagebox.showwarning("Campo vacío", "Por favor, escriba un título antes de generar el documento.")
             return
+        
+        textoSubtitulo = subtituloDoc.get().strip()
         
         ruta = os.path.join(BASE_DIR, "Documento.docx")
         doc = Document()
@@ -187,6 +194,13 @@ def crearPlantilla():
         pBdr.append(bottom)
         pPr.append(pBdr)
         
+        # === Subtítulo (Dinámico y Opcional) ===
+        if textoSubtitulo:  # Si escribió algo en la casilla de subtítulo
+            parrafo = doc.add_paragraph()
+            run_sub = parrafo.add_run(textoSubtitulo)
+            estilo(run_sub)
+            parrafo.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        
         doc.save(ruta)
         
         # Mostrar mensaje con la ruta
@@ -202,8 +216,16 @@ def crearPlantilla():
         ventana_plantilla.focus_force()              # Le da foco inmediatamente
         ventana_plantilla.title("Creando Plantilla") # Cambiar el tituloDoc superior de la ventana   
         ventana_plantilla.resizable(False, False)    # Impide agrandar o achicar la ventana
-        # '%P' significa: "el texto tal cual quedaría si se acepta el cambio"
-        comando_validacion = ventana_plantilla.register(verificar_largo), '%P'
+        
+        # --- Validaciones ---
+        # Para el título (límite 60)
+        cmd_titulo = (ventana_plantilla.register(lambda p: verificar_largo(p, 60)), '%P')
+
+        # Para subtítulo (límite 125)
+        cmd_subtitulo = (ventana_plantilla.register(lambda p: verificar_largo(p, 125)), '%P')
+
+        # Para sección (límite 10)
+        cmd_seccion = (ventana_plantilla.register(lambda p: verificar_largo(p, 10)), '%P')
 
         # Ajustes de la ventana
         ancho = 800
@@ -235,7 +257,7 @@ def crearPlantilla():
             width=200,
             height=35,
             validate="key",
-            validatecommand=comando_validacion)
+            validatecommand=cmd_titulo) # Limite 60
         tituloDoc.place(relx=POS_TITULODOC[0], rely=POS_TITULODOC[1])
 
         textoSubTitulo = crearTexto(ventana_plantilla,
@@ -248,7 +270,9 @@ def crearPlantilla():
             ventana_plantilla,
             placeholder_text="(Opcional)",
             width=200,
-            height=35)
+            height=35,
+            validate="key",
+            validatecommand=cmd_subtitulo)  # límite 80
         subtituloDoc.place(relx=POS_SUBTITULODOC[0], rely=POS_SUBTITULODOC[1])
 
         textoEstudiantes = crearTexto(ventana_plantilla,
@@ -305,7 +329,7 @@ def crearPlantilla():
 
         botonGenerarDoc = customtkinter.CTkButton(ventana_plantilla,
                 text="Generar Plantilla",             # Nombre del botón
-                command=lambda: generarDoc(tituloDoc),# Función a ejecutar
+                command=lambda: generarDoc(tituloDoc, subtituloDoc),# Función a ejecutar
                 fg_color="#437791",                 # Color del botón
                 hover_color="#386379",              # Color sobre el mouse
                 text_color="white",                   # Color del texto
