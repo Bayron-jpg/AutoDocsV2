@@ -1,7 +1,9 @@
 import os
+from pydoc import doc
 import threading
 import customtkinter
 from tkinter import filedialog, messagebox
+from docx import Document
 import docx2pdf
 
 # ------------------ Configuración General ------------------
@@ -42,7 +44,7 @@ def menu():
     # Inicializar ventana
     customtkinter.set_appearance_mode("Dark")
     app.iconbitmap(ICON_DARK)     # Cambiar icono
-    app.title("AutoDocs (1.0.0)") # Cambiar el titulo superior de la ventana
+    app.title("AutoDocs (1.0.0)") # Cambiar el tituloDoc superior de la ventana
     
     # Ajustes de la ventana
     ancho = 800
@@ -54,7 +56,7 @@ def menu():
 
     # ------------ Ajustes personalizados de la ventana ------------
     # --- Posiciones ---
-    POS_TITULO = (0.20, 0.19)
+    POS_TITULODOC = (0.20, 0.19)
     POS_TEMA = (0.03, 0.05)
     POS_SALIR = (0.62, 0.76)
     POS_ACERCA = (0.20, 0.76)
@@ -70,9 +72,9 @@ def menu():
         hover_color=("#c0c0c0","#666666")) # Color sobre el mouse
     cambiarTema.place(relx=POS_TEMA[0], rely=POS_TEMA[1])
 
-    # Titulo AutoDocs
-    titulo = crearTexto(app, "Bienvenido(a) a AutoDocs", "Consolas", 36)
-    titulo.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
+    # TituloDoc AutoDocs
+    tituloDoc = crearTexto(app, "Bienvenido(a) a AutoDocs", "Consolas", 36)
+    tituloDoc.place(relx=POS_TITULODOC[0], rely=POS_TITULODOC[1])
     
     # Botón Crear Plantilla
     botonCrear = customtkinter.CTkButton(app,
@@ -127,10 +129,22 @@ def menu():
 
 def crearPlantilla():
     # --- Posiciones ---
-    POS_TITULO = (0.22, 0.05)
-    POS_GENERARPLANTILLA = (0.07, 0.21)
+    POS_TITULO = (0.22, 0.06)
+    POS_GENERARPLANTILLA = (0.7, 0.70)
     POS_VOLVER = (0.41, 0.83)
-    
+    POS_TEXTOTITULO = (0.10, 0.20)
+    POS_TITULODOC = (0.10, 0.26)
+    POS_TEXTOSUBTITULO = (0.38, 0.20)
+    POS_SUBTITULODOC = (0.38, 0.26)
+    POS_TEXTOESTUDIANTES = (0.66, 0.20)
+    POS_ESTUDIANTES = (0.66, 0.26)
+    POS_TEXTOPROFESOR = (0.10, 0.35)
+    POS_PROFESOR = (0.10, 0.41)
+    POS_TEXTOASIGNATURA = (0.38, 0.35)
+    POS_ASIGNATURA = (0.38, 0.41)
+    POS_TEXTOSECCION = (0.66, 0.35)
+    POS_SECCION = (0.66, 0.41)
+
     global ventana_plantilla
 
     if ventana_plantilla is None or not ventana_plantilla.winfo_exists():
@@ -139,7 +153,7 @@ def crearPlantilla():
         ventana_plantilla.transient(app)             # Vincula a la ventana principal
         ventana_plantilla.grab_set()                 # Impide interactuar con la principal
         ventana_plantilla.focus_force()              # Le da foco inmediatamente
-        ventana_plantilla.title("Creando Plantilla") # Cambiar el titulo superior de la ventana   
+        ventana_plantilla.title("Creando Plantilla") # Cambiar el tituloDoc superior de la ventana   
         ventana_plantilla.resizable(False, False)    # Impide agrandar o achicar la ventana
 
         # Ajustes de la ventana
@@ -160,9 +174,97 @@ def crearPlantilla():
         autoDocs = crearTexto(ventana_plantilla, "Crear Plantilla de Documentos", "Consolas", 28)
         autoDocs.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
         
+        textoTitulo = crearTexto(ventana_plantilla,
+                                 "1. Título del documento",
+                                 "Consolas",
+                                 16)
+        textoTitulo.place(relx=POS_TEXTOTITULO[0], rely=POS_TEXTOTITULO[1])
+        
+        tituloDoc = customtkinter.CTkEntry(
+            ventana_plantilla,
+            placeholder_text="Escribir título...",
+            width=200,
+            height=35)
+        tituloDoc.place(relx=POS_TITULODOC[0], rely=POS_TITULODOC[1])
+
+        textoSubTitulo = crearTexto(ventana_plantilla,
+                                 "2. Subtítulo",
+                                 "Consolas",
+                                 16)
+        textoSubTitulo.place(relx=POS_TEXTOSUBTITULO[0], rely=POS_TEXTOSUBTITULO[1])
+        
+        subtituloDoc = customtkinter.CTkEntry(
+            ventana_plantilla,
+            placeholder_text="(Opcional)",
+            width=200,
+            height=35)
+        subtituloDoc.place(relx=POS_SUBTITULODOC[0], rely=POS_SUBTITULODOC[1])
+
+        textoEstudiantes = crearTexto(ventana_plantilla,
+                                 "3. Estudiantes",
+                                 "Consolas",
+                                 16)
+        textoEstudiantes.place(relx=POS_TEXTOESTUDIANTES[0], rely=POS_TEXTOESTUDIANTES[1])
+        
+        estudiantes = customtkinter.CTkEntry(
+            ventana_plantilla,
+            placeholder_text="Ej: Pedro - Juan - Sofía",
+            width=200,
+            height=35)
+        estudiantes.place(relx=POS_ESTUDIANTES[0], rely=POS_ESTUDIANTES[1])
+
+        textoProfesor = crearTexto(ventana_plantilla,
+                                 "4. Profesor(a)",
+                                 "Consolas",
+                                 16)
+        textoProfesor.place(relx=POS_TEXTOPROFESOR[0], rely=POS_TEXTOPROFESOR[1])
+        
+        profesor = customtkinter.CTkEntry(
+            ventana_plantilla,
+            placeholder_text="Nombre del profesor(a)",
+            width=200,
+            height=35)
+        profesor.place(relx=POS_PROFESOR[0], rely=POS_PROFESOR[1])
+
+        textoAsignatura = crearTexto(ventana_plantilla,
+                                 "5. Asignatura",
+                                 "Consolas",
+                                 16)
+        textoAsignatura.place(relx=POS_TEXTOASIGNATURA[0], rely=POS_TEXTOASIGNATURA[1])
+        
+        asignatura = customtkinter.CTkEntry(
+            ventana_plantilla,
+            placeholder_text="Ej: Fundamentos de Software",
+            width=200,
+            height=35)
+        asignatura.place(relx=POS_ASIGNATURA[0], rely=POS_ASIGNATURA[1])
+
+        textoSeccion = crearTexto(ventana_plantilla,
+                                 "6. Sección",
+                                 "Consolas",
+                                 16)
+        textoSeccion.place(relx=POS_TEXTOSECCION[0], rely=POS_TEXTOSECCION[1])
+        
+        seccion = customtkinter.CTkEntry(
+            ventana_plantilla,
+            placeholder_text="Ej: RQY1101-008D",
+            width=200,
+            height=35)
+        seccion.place(relx=POS_SECCION[0], rely=POS_SECCION[1])
+        
+        def generarDoc():
+            ruta = os.path.join(BASE_DIR, "Documento.docx")
+            doc = Document()
+            doc.save(ruta)
+
+            # Mostrar mensaje con la ruta
+            messagebox.showinfo(
+            "Documento generado",
+            f"El documento se generó correctamente.\n\nRuta:\n{ruta}")
+
         botonGenerarDoc = customtkinter.CTkButton(ventana_plantilla,
                 text="Generar Plantilla",          # Nombre del botón
-                command=None,                      # Función a ejecutar
+                command=generarDoc,                # Función a ejecutar
                 fg_color="#437791",              # Color del botón
                 hover_color="#386379",           # Color sobre el mouse
                 text_color="white",                # Color del texto
@@ -183,7 +285,7 @@ def crearPlantilla():
         
 def convertirPdf():
     # --- Posiciones ---
-    POS_TITULO = (0.15, 0.09)
+    POS_TITULODOC = (0.15, 0.09)
     POS_ARCHIVO = (0.40, 0.41)
     POS_VOLVER = (0.43, 0.83)
     POS_SELECCIONAR = (0.19, 0.41)
@@ -197,7 +299,7 @@ def convertirPdf():
         ventana_pdf.transient(app)                             # Vincula a la ventana principal
         ventana_pdf.grab_set()                                 # Impide interactuar con la principal
         ventana_pdf.focus_force()                              # Le da foco inmediatamente
-        ventana_pdf.title("Convirtiendo Documento Word a PDF") # Cambiar el titulo superior de la ventana   
+        ventana_pdf.title("Convirtiendo Documento Word a PDF") # Cambiar el tituloDoc superior de la ventana   
         ventana_pdf.resizable(False, False)                    # Impide agrandar o achicar la ventana
 
         # Ajustes de la ventana
@@ -216,8 +318,8 @@ def convertirPdf():
         ventana_pdf.after(200, lambda: ventana_pdf.iconbitmap(icono)) # Espera 200ms para cambiar el icono
 
         # --- Título ---
-        titulo = crearTexto(ventana_pdf, "Convertir Documento Word a PDF", "Consolas", 34)
-        titulo.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
+        tituloDoc = crearTexto(ventana_pdf, "Convertir Documento Word a PDF", "Consolas", 34)
+        tituloDoc.place(relx=POS_TITULODOC[0], rely=POS_TITULODOC[1])
 
         # --- Archivo seleccionado ---
         archivoSeleccionado = crearTexto(ventana_pdf, "Ningún archivo seleccionado", "Consolas", 12)
@@ -312,7 +414,7 @@ def acercaDe():
         ventana_acerca.transient(app)           # Vincula a la ventana principal
         ventana_acerca.grab_set()               # Impide interactuar con la principal
         ventana_acerca.focus_force()            # Le da foco inmediatamente
-        ventana_acerca.title("Acerca de")       # Cambiar el titulo superior de la ventana   
+        ventana_acerca.title("Acerca de")       # Cambiar el tituloDoc superior de la ventana   
         ventana_acerca.resizable(False, False)  # Impide agrandar o achicar la ventana
 
         # Ajustes de la ventana
