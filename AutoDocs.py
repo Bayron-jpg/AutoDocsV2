@@ -135,7 +135,7 @@ def menu():
 def crearPlantilla():
     # --- Posiciones ---
     POS_TITULO = (0.22, 0.06)
-    POS_GENERARPLANTILLA = (0.67, 0.59)
+    POS_GENERARPLANTILLA = (0.66, 0.68)
     POS_VOLVER = (0.41, 0.83)
     POS_TEXTOTITULO = (0.09, 0.20)
     POS_TITULODOC = (0.10, 0.26)
@@ -152,6 +152,8 @@ def crearPlantilla():
     POS_TEXTOIMAGEN = (0.05, 0.55)
     POS_BOTONIMAGEN = (0.05, 0.63)
     POS_LABELIMAGEN = (0.25, 0.63)
+    POS_TEXTONOMBREARCHIVO = (0.66, 0.53)
+    POS_NOMBREARCHIVO = (0.66, 0.59)
 
     global ventana_plantilla
     
@@ -180,7 +182,7 @@ def crearPlantilla():
 
         return p
     
-    def generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura, seccion, botonSeleccionarImagen):
+    def generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura, seccion, botonSeleccionarImagen, nombreArchivo):
         textoTitulo = tituloDoc.get().strip()
         if not textoTitulo:
             messagebox.showwarning("Campo vacío", "Por favor, escriba un título antes de generar el documento.")
@@ -204,8 +206,12 @@ def crearPlantilla():
             return
 
         textoSeccion = seccion.get().strip()
+        
+        nombre = nombreArchivo.get().strip()
+        if not nombre:
+            nombre = "Documento"  # Nombre por defecto
                 
-        ruta = os.path.join(BASE_DIR, "Documento.docx")
+        ruta = os.path.join(BASE_DIR, f"{nombre}.docx")
         doc = Document()
 
         # === ENCABEZADO (Opcional) ===
@@ -438,6 +444,16 @@ def crearPlantilla():
                 labelImagen.configure(text=os.path.basename(imagen))
                 botonSeleccionarImagen.imagen_path = imagen
 
+        textoNombreArchivo = crearTexto(ventana_plantilla, "Nombre del archivo", "Consolas", 16)
+        textoNombreArchivo.place(relx=POS_TEXTONOMBREARCHIVO[0], rely=POS_TEXTONOMBREARCHIVO[1])
+
+        nombreArchivo = customtkinter.CTkEntry(
+            ventana_plantilla,
+            placeholder_text="(Opcional) Ej: Informe N°1",
+            width=200,
+            height=35)
+        nombreArchivo.place(relx=POS_NOMBREARCHIVO[0], rely=POS_NOMBREARCHIVO[1])
+        
         botonSeleccionarImagen = customtkinter.CTkButton(ventana_plantilla,
             text="Seleccionar imagen",
             command=seleccionarImagen,
@@ -449,7 +465,7 @@ def crearPlantilla():
 
         botonGenerarDoc = customtkinter.CTkButton(ventana_plantilla,
                 text="Generar Plantilla",             # Nombre del botón
-                command=lambda: generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura, seccion, botonSeleccionarImagen),# Función a ejecutar
+                command=lambda: generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura, seccion, botonSeleccionarImagen, nombreArchivo),# Función a ejecutar
                 fg_color="#437791",                 # Color del botón
                 hover_color="#386379",              # Color sobre el mouse
                 text_color="white",                   # Color del texto
