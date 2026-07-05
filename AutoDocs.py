@@ -61,7 +61,7 @@ def menu():
 
     # ------------ Ajustes personalizados de la ventana ------------
     # --- Posiciones ---
-    POS_TITULODOC = (0.20, 0.19)
+    POS_TITULODOC = (0.24, 0.19)
     POS_TEMA = (0.03, 0.05)
     POS_SALIR = (0.62, 0.76)
     POS_ACERCA = (0.20, 0.76)
@@ -78,7 +78,7 @@ def menu():
     cambiarTema.place(relx=POS_TEMA[0], rely=POS_TEMA[1])
 
     # TituloDoc AutoDocs
-    tituloDoc = crearTexto(app, "Bienvenido(a) a AutoDocs", "Consolas", 36)
+    tituloDoc = crearTexto(app, "Bienvenido(a) a AutoDocs", "Menlo", 36)
     tituloDoc.place(relx=POS_TITULODOC[0], rely=POS_TITULODOC[1])
     
     # Botón Crear Plantilla
@@ -90,7 +90,7 @@ def menu():
         text_color=("#f0f0f0","white"), # Color del texto
         width=270,                        # Ancho del botón
         height=110,                       # Alto del botón
-        font=("Consolas", 24))            # Tipo de letra y tamaño del texto
+        font=("Menlo", 24))            # Tipo de letra y tamaño del texto
     botonCrear.place(relx=POS_CREAR[0], rely=POS_CREAR[1])
 
     # Botón Convertir a PDF
@@ -102,7 +102,7 @@ def menu():
         text_color=("#f0f0f0","white"),# Color del texto
         width=270,                       # Ancho del botón
         height=110,                      # Alto del botón
-        font=("Consolas", 24))           # Tipo de letra y tamaño del texto
+        font=("Menlo", 24))           # Tipo de letra y tamaño del texto
     botonConvertir.place(relx=POS_CONVERTIR[0], rely=POS_CONVERTIR[1])
     
     # Botón Acerca De
@@ -134,10 +134,10 @@ def menu():
 
 def crearPlantilla():
     # --- Posiciones ---
-    POS_TITULO = (0.22, 0.06)
+    POS_TITULO = (0.27, 0.06)
     POS_GENERARPLANTILLA = (0.66, 0.68)
     POS_VOLVER = (0.41, 0.83)
-    POS_TEXTOTITULO = (0.09, 0.20)
+    POS_TEXTOTITULO = (0.10, 0.20)
     POS_TITULODOC = (0.10, 0.26)
     POS_TEXTOSUBTITULO = (0.38, 0.20)
     POS_SUBTITULODOC = (0.38, 0.26)
@@ -149,9 +149,9 @@ def crearPlantilla():
     POS_ASIGNATURA = (0.38, 0.41)
     POS_TEXTOSECCION = (0.66, 0.35)
     POS_SECCION = (0.66, 0.41)
-    POS_TEXTOIMAGEN = (0.05, 0.55)
-    POS_BOTONIMAGEN = (0.05, 0.63)
-    POS_LABELIMAGEN = (0.25, 0.63)
+    POS_TEXTOIMAGEN = (0.10, 0.55)
+    POS_BOTONIMAGEN = (0.10, 0.63)
+    POS_LABELIMAGEN = (0.29, 0.63)
     POS_TEXTONOMBREARCHIVO = (0.66, 0.53)
     POS_NOMBREARCHIVO = (0.66, 0.59)
 
@@ -329,12 +329,12 @@ def crearPlantilla():
         icono = ICON_DARK if customtkinter.get_appearance_mode() == "Dark" else ICON_LIGHT
         ventana_plantilla.after(200, lambda: ventana_plantilla.iconbitmap(icono)) # Espera 200ms para cambiar el icono
         
-        autoDocs = crearTexto(ventana_plantilla, "Crear Plantilla de Documentos", "Consolas", 28)
+        autoDocs = crearTexto(ventana_plantilla, "Crear Plantilla de Documento", "Menlo", 28)
         autoDocs.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
         
         # --- Titulo ---
         textoTitulo = crearTexto(ventana_plantilla,
-                                 "1. Título del documento",
+                                 "1.Título del documento",
                                  "Consolas",
                                  16)
         textoTitulo.place(relx=POS_TEXTOTITULO[0], rely=POS_TEXTOTITULO[1])
@@ -350,7 +350,7 @@ def crearPlantilla():
 
         # --- Subtitulo ---
         textoSubTitulo = crearTexto(ventana_plantilla,
-                                 "2. Subtítulo",
+                                 "2.Subtítulo",
                                  "Consolas",
                                  16)
         textoSubTitulo.place(relx=POS_TEXTOSUBTITULO[0], rely=POS_TEXTOSUBTITULO[1])
@@ -366,7 +366,7 @@ def crearPlantilla():
 
         # --- Estudiantes ---
         textoEstudiantes = crearTexto(ventana_plantilla,
-                                 "3. Estudiantes",
+                                 "3.Estudiantes",
                                  "Consolas",
                                  16)
         textoEstudiantes.place(relx=POS_TEXTOESTUDIANTES[0], rely=POS_TEXTOESTUDIANTES[1])
@@ -382,7 +382,7 @@ def crearPlantilla():
 
         # --- Profesor ---
         textoProfesor = crearTexto(ventana_plantilla,
-                                 "4. Profesor(a)",
+                                 "4.Profesor(a)",
                                  "Consolas",
                                  16)
         textoProfesor.place(relx=POS_TEXTOPROFESOR[0], rely=POS_TEXTOPROFESOR[1])
@@ -398,7 +398,7 @@ def crearPlantilla():
 
         # --- Asignatura ---
         textoAsignatura = crearTexto(ventana_plantilla,
-                                 "5. Asignatura",
+                                 "5.Asignatura",
                                  "Consolas",
                                  16)
         textoAsignatura.place(relx=POS_TEXTOASIGNATURA[0], rely=POS_TEXTOASIGNATURA[1])
@@ -414,7 +414,7 @@ def crearPlantilla():
 
         # --- Sección ---
         textoSeccion = crearTexto(ventana_plantilla,
-                                 "6. Sección",
+                                 "6.Sección",
                                  "Consolas",
                                  16)
         textoSeccion.place(relx=POS_TEXTOSECCION[0], rely=POS_TEXTOSECCION[1])
@@ -455,7 +455,7 @@ def crearPlantilla():
         nombreArchivo.place(relx=POS_NOMBREARCHIVO[0], rely=POS_NOMBREARCHIVO[1])
         
         botonSeleccionarImagen = customtkinter.CTkButton(ventana_plantilla,
-            text="Seleccionar imagen",
+            text="Explorar Archivos",
             command=seleccionarImagen,
             fg_color=("#cecece","gray"),
             hover_color=("#c0c0c0","#666666"),
@@ -487,11 +487,12 @@ def crearPlantilla():
         
 def convertirPdf():
     # --- Posiciones ---
-    POS_TITULODOC = (0.15, 0.09)
-    POS_ARCHIVO = (0.40, 0.41)
-    POS_VOLVER = (0.43, 0.83)
-    POS_SELECCIONAR = (0.19, 0.41)
+    POS_TITULODOC = (0.18, 0.09)
+    POS_ARCHIVO = (0.40, 0.44)
+    POS_SELECCIONAR = (0.19, 0.43)
+    POS_VOLVER = (0.41, 0.83)
     POS_CONVERTIR = (0.41, 0.56)
+    POS_TEXTOARCHIVO = (0.19, 0.34)
     
     global ventana_pdf
 
@@ -501,7 +502,7 @@ def convertirPdf():
         ventana_pdf.transient(app)                             # Vincula a la ventana principal
         ventana_pdf.grab_set()                                 # Impide interactuar con la principal
         ventana_pdf.focus_force()                              # Le da foco inmediatamente
-        ventana_pdf.title("Convirtiendo Documento Word a PDF") # Cambiar el tituloDoc superior de la ventana   
+        ventana_pdf.title("Convertir Documento Word a PDF") # Cambiar el tituloDoc superior de la ventana   
         ventana_pdf.resizable(False, False)                    # Impide agrandar o achicar la ventana
 
         # Ajustes de la ventana
@@ -520,9 +521,13 @@ def convertirPdf():
         ventana_pdf.after(200, lambda: ventana_pdf.iconbitmap(icono)) # Espera 200ms para cambiar el icono
 
         # --- Título ---
-        tituloDoc = crearTexto(ventana_pdf, "Convertir Documento Word a PDF", "Consolas", 34)
+        tituloDoc = crearTexto(ventana_pdf, "Convertir Documento Word a PDF", "Menlo", 34)
         tituloDoc.place(relx=POS_TITULODOC[0], rely=POS_TITULODOC[1])
 
+        # -- Texto seleccion de archivo ---
+        textoArchivo = crearTexto(ventana_pdf, "Seleccionar archivo PDF a convertir", "Consolas", 16)
+        textoArchivo.place(relx=POS_TEXTOARCHIVO[0], rely=POS_TEXTOARCHIVO[1])
+        
         # --- Archivo seleccionado ---
         archivoSeleccionado = crearTexto(ventana_pdf, "Ningún archivo seleccionado", "Consolas", 12)
         archivoSeleccionado.place(relx=POS_ARCHIVO[0], rely=POS_ARCHIVO[1])
@@ -581,8 +586,8 @@ def convertirPdf():
         botonConvertir = customtkinter.CTkButton(ventana_pdf,
             text="Convertir a PDF",
             command=convertir,
-            fg_color="#e05a2b",
-            hover_color="#b84a20",
+            fg_color="#437791",
+            hover_color="#386379",
             text_color="white",
             height=35,
             state="disabled")
