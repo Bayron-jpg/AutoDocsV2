@@ -3,7 +3,7 @@ Aplicación para automatizar la creación de documentos Word repetitivos.
 
 ## Requisitos
 - Python 3.10+
-- Microsoft Word (Requerido por docx2pdf para la conversión a PDF)
+- Microsoft Word
 
 ## Dependencias Utilizadas
 | Dependencia | Uso |
