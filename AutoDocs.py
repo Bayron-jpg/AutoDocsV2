@@ -154,27 +154,6 @@ def crearPlantilla():
     POS_LABELIMAGEN = (0.29, 0.63)
     POS_TEXTONOMBREARCHIVO = (0.66, 0.53)
     POS_NOMBREARCHIVO = (0.66, 0.59)
-
-
-    # --- Función para rellenar con datos de prueba ---
-    def rellenarPrueba():
-        tituloDoc.delete(0, "end")        
-        tituloDoc.insert(0, "Informe de Laboratorio N°1")
-    
-        subtituloDoc.delete(0, "end")
-        subtituloDoc.insert(0, "Análisis de Requisitos del Sistema")
-    
-        estudiantes.delete(0, "end")
-        estudiantes.insert(0, "Juan Pérez - María López")
-    
-        profesor.delete(0, "end")
-        profesor.insert(0, "Carlos Ramírez")
-    
-        asignatura.delete(0, "end")
-        asignatura.insert(0, "Fundamentos de Software")
-    
-        seccion.delete(0, "end")
-        seccion.insert(0, "008D")
     
     global ventana_plantilla
     
@@ -503,6 +482,29 @@ def crearPlantilla():
                 text_color="white",                # Color del texto
                 height=35)                         # Alto del botón
         botonVolver.place(relx=POS_VOLVER[0], rely=POS_VOLVER[1])
+        
+        # --- Función para rellenar con datos de prueba ---
+        def rellenarPrueba():
+            tituloDoc.delete(0, "end")        
+            tituloDoc.insert(0, "Informe Gestión de Biblioteca")
+    
+            subtituloDoc.delete(0, "end")
+            subtituloDoc.insert(0, "Etapa 1: Análisis de Requisitos del Sistema")
+    
+            estudiantes.delete(0, "end")
+            estudiantes.insert(0, "Bayron Urrutia - José Ibarra")
+    
+            profesor.delete(0, "end")
+            profesor.insert(0, "Elliana Mallén González")
+    
+            asignatura.delete(0, "end")
+            asignatura.insert(0, "Ingeniería de Requisitos")
+    
+            seccion.delete(0, "end")
+            seccion.insert(0, "008D")
+            
+            nombreArchivo.delete(0, "end")
+            nombreArchivo.insert(0, "Informe_Biblioteca")
         
         # --- Botón datos de prueba (NUEVO) ---
         botonPrueba = customtkinter.CTkButton(ventana_plantilla,
