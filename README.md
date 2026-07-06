@@ -1,5 +1,5 @@
 # AutoDocs
-Aplicación para automatizar la creación de documentos Word repetitivos.
+Aplicación para crear plantillas de documentos Word repetitivos y transformar archivos Word a PDF.
 
 ## Requisitos
 - Python 3.10+
@@ -9,14 +9,14 @@ Aplicación para automatizar la creación de documentos Word repetitivos.
 | Dependencia | Uso |
 | ----------- | --- |
 | CustomTKinter | Creación de la interfaz gráfica. |
-| Docx2Pdf | Transformar documentos Word a PDF. |
-| Python-docx | Creación de documentos Word. |
-<!-- | PyInstaller | Comprimir archivos .py a .exe| -->
+| Docx2Pdf | Transformar documentos Word a PDF.|
+| Python-docx | Creación de documentos Word.   |
+| PyInstaller | Comprimir archivos .py a .exe  |
 
 ## Como ejecutar
-### 1. Ejecutsr código
-1. Clonar el repositorio con "git clone https://www.github.com/Bayron-jpg/V2-AutoDocs".
-2. Instalar la dependencias con los comandos:
+### 1. Ejecutar código
+1. Clonar el repositorio con "git clone https://www.github.com/Bayron-jpg/AutoDocsV2".
+2. Instalar las dependencias con los comandos:
 - pip install customtkinter
 - pip install docx2pdf
 - pip install python-docx
