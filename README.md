@@ -13,18 +13,18 @@ Aplicación para automatizar la creación de documentos Word repetitivos.
 | Python-docx | Creación de documentos Word. |
 <!-- | PyInstaller | Comprimir archivos .py a .exe| -->
 
-# Como ejecutar
-## Opcion 1
+## Como ejecutar
+### Opcion 1
 1. Clonar el repositorio con "git clone https://www.github.com/Bayron-jpg/V2-AutoDocs".
 2. Instalar la dependencias con los comandos:
 - pip install customtkinter
 - pip install docx2pdf
 - pip install python-docx
 3. Ejecutar el archivo "AutoDocs.py" y navegar por la aplicación.
-## Opcion 2
+### Opcion 2
 1. Descargar el ejecutable de AutoDocs en la url https://www.mediafire.com/file/tjjxjlxiaxs3zq2/AutoDocs.exe/file.
 
-# Screenshots / Preview
+## Screenshots / Preview
 - Menu (Oscuro)
 <img width="800" height="500" alt="1" src="https://github.com/user-attachments/assets/bc97b508-bc43-48c5-ac42-93a5f7cf4c97" />
 
