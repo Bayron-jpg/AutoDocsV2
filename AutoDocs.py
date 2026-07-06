@@ -133,88 +133,53 @@ def menu():
     app.mainloop() # Loop que mantiene la ventana abierta
 
 def crearPlantilla():
-    # --- Posiciones ---
-    POS_TITULO = (0.27, 0.06)
-    POS_GENERARPLANTILLA = (0.66, 0.68)
-    POS_VOLVER = (0.41, 0.83)
-    POS_TEXTOTITULO = (0.10, 0.20)
-    POS_TITULODOC = (0.10, 0.26)
-    POS_TEXTOSUBTITULO = (0.38, 0.20)
-    POS_SUBTITULODOC = (0.38, 0.26)
-    POS_TEXTOESTUDIANTES = (0.66, 0.20)
-    POS_ESTUDIANTES = (0.66, 0.26)
-    POS_TEXTOPROFESOR = (0.10, 0.35)
-    POS_PROFESOR = (0.10, 0.41)
-    POS_TEXTOASIGNATURA = (0.38, 0.35)
-    POS_ASIGNATURA = (0.38, 0.41)
-    POS_TEXTOSECCION = (0.66, 0.35)
-    POS_SECCION = (0.66, 0.41)
-    POS_TEXTOIMAGEN = (0.10, 0.55)
-    POS_BOTONIMAGEN = (0.10, 0.63)
-    POS_LABELIMAGEN = (0.29, 0.63)
-    POS_TEXTONOMBREARCHIVO = (0.66, 0.53)
-    POS_NOMBREARCHIVO = (0.66, 0.59)
-    
     global ventana_plantilla
-    
+
     def verificar_largo(texto_futuro, limite):
         return len(texto_futuro) <= limite
-    
-    
+
     def estilo(run, size=14, bold=False):
         run.font.name = "Arial"
         run._element.rPr.rFonts.set(qn('w:eastAsia'), 'Arial')
         run.font.size = Pt(size)
         run.font.color.rgb = RGBColor(0, 0, 0)
         run.bold = bold
-        
+
     def agregar_linea(doc, etiqueta, valor, espacio_antes=0):
         p = doc.add_paragraph()
-
         run1 = p.add_run(etiqueta)
         estilo(run1, bold=True)
-
         run2 = p.add_run(valor)
         estilo(run2)
-
         p.paragraph_format.space_before = Pt(espacio_antes)
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-
         return p
-    
+
     def generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura, seccion, botonSeleccionarImagen, nombreArchivo):
         textoTitulo = tituloDoc.get().strip()
         if not textoTitulo:
             messagebox.showwarning("Campo vacío", "Por favor, escriba un título antes de generar el documento.")
             return
-        
         textoSubtitulo = subtituloDoc.get().strip()
-        
         textoEstudiantes = estudiantes.get().strip()
         if not textoEstudiantes:
             messagebox.showwarning("Campo vacío", "Por favor, escriba almenos un estudiante.")
             return
-        
         textoProfesor = profesor.get().strip()
         if not textoProfesor:
             messagebox.showwarning("Campo vacío", "Por favor, escriba almenos un profesor(a).")
             return
-        
         textoAsignatura = asignatura.get().strip()
         if not textoAsignatura:
             messagebox.showwarning("Campo vacío", "Por favor, escriba almenos una asignatura.")
             return
-
         textoSeccion = seccion.get().strip()
-        
         nombre = nombreArchivo.get().strip()
         if not nombre:
-            nombre = "Documento"  # Nombre por defecto
-                
+            nombre = "Documento"
         ruta = os.path.join(BASE_DIR, f"{nombre}.docx")
         doc = Document()
 
-        # === ENCABEZADO (Opcional) ===
         if hasattr(botonSeleccionarImagen, 'imagen_path'):
             section = doc.sections[0]
             header = section.header
@@ -226,24 +191,19 @@ def crearPlantilla():
             header_paragraph.paragraph_format.space_before = 0
             header_paragraph.paragraph_format.space_after = 0
 
-        # Eliminar párrafo vacío inicial
         if doc.paragraphs:
             p = doc.paragraphs[0]._element
             p.getparent().remove(p)
 
-        # === Título ===
         titulo = doc.add_heading(textoTitulo, level=0)
         titulo.paragraph_format.space_before = Pt(120)
-        titulo.paragraph_format.space_after = Pt(0)  # Sin espacio después
-
+        titulo.paragraph_format.space_after = Pt(0)
         run = titulo.runs[0]
         run.font.name = "Arial"
         run._element.rPr.rFonts.set(qn('w:eastAsia'), 'Arial')
         run.font.size = Pt(52)
         run.font.color.rgb = RGBColor(0, 0, 0)
         titulo.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-        # Borrar línea bajo el título
         pPr = titulo._element.get_or_add_pPr()
         pBdr = OxmlElement('w:pBdr')
         bottom = OxmlElement('w:bottom')
@@ -251,7 +211,6 @@ def crearPlantilla():
         pBdr.append(bottom)
         pPr.append(pBdr)
 
-        # === Subtítulo (Opcional) ===
         if textoSubtitulo:
             parrafo = doc.add_paragraph()
             run_sub = parrafo.add_run(textoSubtitulo)
@@ -260,12 +219,9 @@ def crearPlantilla():
             parrafo.paragraph_format.space_before = Pt(0)
             parrafo.paragraph_format.space_after = Pt(0)
 
-        # === Datos (empujados al fondo con espacio) ===
         lineas = [("Estudiantes: ", textoEstudiantes), ("Profesor(a): ", textoProfesor), ("Asignatura: ", textoAsignatura)]
         if textoSeccion:
             lineas.append(("Sección: ", textoSeccion))
-
-        # Primera línea con espacio grande para empujar al fondo
         primera = True
         for etiqueta, valor in lineas:
             p = doc.add_paragraph()
@@ -275,247 +231,144 @@ def crearPlantilla():
             estilo(run2)
             p.alignment = WD_ALIGN_PARAGRAPH.LEFT
             if primera:
-                p.paragraph_format.space_before = Pt(250)  # Empuja al fondo
+                p.paragraph_format.space_before = Pt(250)
                 primera = False
             else:
                 p.paragraph_format.space_before = Pt(0)
 
         doc.save(ruta)
-        
-        # Mostrar mensaje con la ruta
-        messagebox.showinfo(
-        "Documento generado",
-        f"El documento se generó correctamente.\n\nRuta:\n{ruta}")
-        
+        messagebox.showinfo("Documento generado", f"El documento se generó correctamente.\n\nRuta:\n{ruta}")
+
     if ventana_plantilla is None or not ventana_plantilla.winfo_exists():
-        # ------ Crear y ajustar ventana ------
+        # ------ Crear ventana ------
         ventana_plantilla = customtkinter.CTkToplevel(app)
-        ventana_plantilla.transient(app)             # Vincula a la ventana principal
-        ventana_plantilla.grab_set()                 # Impide interactuar con la principal
-        ventana_plantilla.focus_force()              # Le da foco inmediatamente
-        ventana_plantilla.title("Creando Plantilla") # Cambiar el tituloDoc superior de la ventana   
-        ventana_plantilla.resizable(False, False)    # Impide agrandar o achicar la ventana
-        
-        # --- Validaciones ---
-        # Para el título (límite 60)
-        cmd_titulo = (ventana_plantilla.register(lambda p: verificar_largo(p, 60)), '%P')
+        ventana_plantilla.transient(app)
+        ventana_plantilla.grab_set()
+        ventana_plantilla.focus_force()
+        ventana_plantilla.title("Creando Plantilla")
+        ventana_plantilla.resizable(False, False)
 
-        # Para subtítulo (límite 125)
-        cmd_subtitulo = (ventana_plantilla.register(lambda p: verificar_largo(p, 125)), '%P')
-
-        # Para estudiantes (límite 50)
-        cmd_estudiantes = (ventana_plantilla.register(lambda p: verificar_largo(p, 50)), '%P')
-        
-        # Para profesor (límite 44)
-        cmd_profesor = (ventana_plantilla.register(lambda p: verificar_largo(p, 44)), '%P')
-        
-        # Para asignatura (límite 44)
-        cmd_asignatura = (ventana_plantilla.register(lambda p: verificar_largo(p, 44)), '%P')
-        
-        # Para seccion (límite 30)
-        cmd_seccion = (ventana_plantilla.register(lambda p: verificar_largo(p, 30)), '%P')
-
-        # Ajustes de la ventana
         ancho = 800
         alto = 500
         x = app.winfo_x() + (app.winfo_width() - ancho) // 2
         y = app.winfo_y() + (app.winfo_height() - alto) // 2
         ventana_plantilla.geometry(f"{ancho}x{alto}+{x}+{y}")
-
-        # Fuerza a que la ventana termine de crearse para aplicar el icono
         ventana_plantilla.update_idletasks()
-        ventana_plantilla.bind("<Escape>", lambda e: ventana_plantilla.destroy()) # Si pulsa Escape se cierra la ventana
-        
-        # Obtener el modo actual (Claro/Oscuro)
+        ventana_plantilla.bind("<Escape>", lambda e: ventana_plantilla.destroy())
+
         icono = ICON_DARK if customtkinter.get_appearance_mode() == "Dark" else ICON_LIGHT
-        ventana_plantilla.after(200, lambda: ventana_plantilla.iconbitmap(icono)) # Espera 200ms para cambiar el icono
-        
-        autoDocs = crearTexto(ventana_plantilla, "Crear Plantilla de Documento", "Menlo", 28)
-        autoDocs.place(relx=POS_TITULO[0], rely=POS_TITULO[1])
-        
-        # --- Titulo ---
-        textoTitulo = crearTexto(ventana_plantilla,
-                                 "1.Título del documento",
-                                 "Consolas",
-                                 16)
-        textoTitulo.place(relx=POS_TEXTOTITULO[0], rely=POS_TEXTOTITULO[1])
-        
-        tituloDoc = customtkinter.CTkEntry(
-            ventana_plantilla,
-            placeholder_text="Escribir título...",
-            width=200,
-            height=35,
-            validate="key",
-            validatecommand=cmd_titulo) # Limite 60
-        tituloDoc.place(relx=POS_TITULODOC[0], rely=POS_TITULODOC[1])
+        ventana_plantilla.after(200, lambda: ventana_plantilla.iconbitmap(icono))
 
-        # --- Subtitulo ---
-        textoSubTitulo = crearTexto(ventana_plantilla,
-                                 "2.Subtítulo",
-                                 "Consolas",
-                                 16)
-        textoSubTitulo.place(relx=POS_TEXTOSUBTITULO[0], rely=POS_TEXTOSUBTITULO[1])
-        
-        subtituloDoc = customtkinter.CTkEntry(
-            ventana_plantilla,
-            placeholder_text="(Opcional)",
-            width=200,
-            height=35,
-            validate="key",
-            validatecommand=cmd_subtitulo)  # límite 80
-        subtituloDoc.place(relx=POS_SUBTITULODOC[0], rely=POS_SUBTITULODOC[1])
+        # --- Validaciones ---
+        cmd_titulo    = (ventana_plantilla.register(lambda p: verificar_largo(p, 60)),  '%P')
+        cmd_subtitulo = (ventana_plantilla.register(lambda p: verificar_largo(p, 125)), '%P')
+        cmd_estudiantes = (ventana_plantilla.register(lambda p: verificar_largo(p, 50)), '%P')
+        cmd_profesor  = (ventana_plantilla.register(lambda p: verificar_largo(p, 44)), '%P')
+        cmd_asignatura = (ventana_plantilla.register(lambda p: verificar_largo(p, 44)), '%P')
+        cmd_seccion   = (ventana_plantilla.register(lambda p: verificar_largo(p, 30)), '%P')
 
-        # --- Estudiantes ---
-        textoEstudiantes = crearTexto(ventana_plantilla,
-                                 "3.Estudiantes",
-                                 "Consolas",
-                                 16)
-        textoEstudiantes.place(relx=POS_TEXTOESTUDIANTES[0], rely=POS_TEXTOESTUDIANTES[1])
-        
-        estudiantes = customtkinter.CTkEntry(
-            ventana_plantilla,
-            placeholder_text="Ej: Pedro - Juan - Sofía",
-            width=200,
-            height=35,
-            validate="key",
-            validatecommand=cmd_estudiantes)  # límite 50
-        estudiantes.place(relx=POS_ESTUDIANTES[0], rely=POS_ESTUDIANTES[1])
+        # ==================== FRAME 1 (Portada) ====================
+        frame1 = customtkinter.CTkFrame(ventana_plantilla, fg_color="transparent")
+        frame1.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-        # --- Profesor ---
-        textoProfesor = crearTexto(ventana_plantilla,
-                                 "4.Profesor(a)",
-                                 "Consolas",
-                                 16)
-        textoProfesor.place(relx=POS_TEXTOPROFESOR[0], rely=POS_TEXTOPROFESOR[1])
-        
-        profesor = customtkinter.CTkEntry(
-            ventana_plantilla,
-            placeholder_text="Nombre del profesor(a)",
-            width=200,
-            height=35,
-            validate="key",
-            validatecommand=cmd_profesor)  # límite 44
-        profesor.place(relx=POS_PROFESOR[0], rely=POS_PROFESOR[1])
+        # --- Navegación entre frames ---
+        def ir_a_pagina2():
+            frame1.place_forget()
+            frame2.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-        # --- Asignatura ---
-        textoAsignatura = crearTexto(ventana_plantilla,
-                                 "5.Asignatura",
-                                 "Consolas",
-                                 16)
-        textoAsignatura.place(relx=POS_TEXTOASIGNATURA[0], rely=POS_TEXTOASIGNATURA[1])
-        
-        asignatura = customtkinter.CTkEntry(
-            ventana_plantilla,
-            placeholder_text="Ej: Fundamentos de Software",
-            width=200,
-            height=35,
-            validate="key",
-                    validatecommand=cmd_asignatura)  # límite 44
-        asignatura.place(relx=POS_ASIGNATURA[0], rely=POS_ASIGNATURA[1])
+        def ir_a_pagina1():
+            frame2.place_forget()
+            frame1.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-        # --- Sección ---
-        textoSeccion = crearTexto(ventana_plantilla,
-                                 "6.Sección",
-                                 "Consolas",
-                                 16)
-        textoSeccion.place(relx=POS_TEXTOSECCION[0], rely=POS_TEXTOSECCION[1])
-        
-        seccion = customtkinter.CTkEntry(
-            ventana_plantilla,
-            placeholder_text="(Opcional) Ej: 008D",
-            width=200,
-            height=35,
-            validate="key",
-            validatecommand=cmd_seccion)  # límite 30
-        seccion.place(relx=POS_SECCION[0], rely=POS_SECCION[1])
-        
-        # Encabezado
-        textoImagen = crearTexto(ventana_plantilla, "Seleccionar imagen de encabezado", "Consolas", 16)
-        textoImagen.place(relx=POS_TEXTOIMAGEN[0], rely=POS_TEXTOIMAGEN[1])
+        # --- Título frame1 ---
+        crearTexto(frame1, "Crear Plantilla de Documento", "Menlo", 28).place(relx=0.27, rely=0.06)
 
-        labelImagen = crearTexto(ventana_plantilla, "(Opcional)", "Consolas", 12)
-        labelImagen.place(relx=POS_LABELIMAGEN[0], rely=POS_LABELIMAGEN[1])
+        # --- Campos portada ---
+        crearTexto(frame1, "1.Título del documento", "Consolas", 16).place(relx=0.10, rely=0.20)
+        tituloDoc = customtkinter.CTkEntry(frame1, placeholder_text="Escribir título...", width=200, height=35, validate="key", validatecommand=cmd_titulo)
+        tituloDoc.place(relx=0.10, rely=0.26)
+
+        crearTexto(frame1, "2.Subtítulo", "Consolas", 16).place(relx=0.38, rely=0.20)
+        subtituloDoc = customtkinter.CTkEntry(frame1, placeholder_text="(Opcional)", width=200, height=35, validate="key", validatecommand=cmd_subtitulo)
+        subtituloDoc.place(relx=0.38, rely=0.26)
+
+        crearTexto(frame1, "3.Estudiantes", "Consolas", 16).place(relx=0.66, rely=0.20)
+        estudiantes = customtkinter.CTkEntry(frame1, placeholder_text="Ej: Pedro - Juan - Sofía", width=200, height=35, validate="key", validatecommand=cmd_estudiantes)
+        estudiantes.place(relx=0.66, rely=0.26)
+
+        crearTexto(frame1, "4.Profesor(a)", "Consolas", 16).place(relx=0.10, rely=0.35)
+        profesor = customtkinter.CTkEntry(frame1, placeholder_text="Nombre del profesor(a)", width=200, height=35, validate="key", validatecommand=cmd_profesor)
+        profesor.place(relx=0.10, rely=0.41)
+
+        crearTexto(frame1, "5.Asignatura", "Consolas", 16).place(relx=0.38, rely=0.35)
+        asignatura = customtkinter.CTkEntry(frame1, placeholder_text="Ej: Fundamentos de Software", width=200, height=35, validate="key", validatecommand=cmd_asignatura)
+        asignatura.place(relx=0.38, rely=0.41)
+
+        crearTexto(frame1, "6.Sección", "Consolas", 16).place(relx=0.66, rely=0.35)
+        seccion = customtkinter.CTkEntry(frame1, placeholder_text="(Opcional) Ej: 008D", width=200, height=35, validate="key", validatecommand=cmd_seccion)
+        seccion.place(relx=0.66, rely=0.41)
+
+        crearTexto(frame1, "Seleccionar imagen de encabezado", "Consolas", 16).place(relx=0.14, rely=0.55)
+        labelImagen = crearTexto(frame1, "(Opcional)", "Consolas", 12)
+        labelImagen.place(relx=0.33, rely=0.63)
 
         def seleccionarImagen():
-            imagen = filedialog.askopenfilename(
-                title="Seleccionar imagen de encabezado",
-                filetypes=[("Imágenes", "*.png *.jpg *.jpeg")]
-                    )
+            imagen = filedialog.askopenfilename(title="Seleccionar imagen de encabezado", filetypes=[("Imágenes", "*.png *.jpg *.jpeg")])
             if imagen:
                 labelImagen.configure(text=os.path.basename(imagen))
                 botonSeleccionarImagen.imagen_path = imagen
 
-        textoNombreArchivo = crearTexto(ventana_plantilla, "Nombre del archivo", "Consolas", 16)
-        textoNombreArchivo.place(relx=POS_TEXTONOMBREARCHIVO[0], rely=POS_TEXTONOMBREARCHIVO[1])
+        botonSeleccionarImagen = customtkinter.CTkButton(frame1, text="Explorar Archivos", command=seleccionarImagen,
+            fg_color=("#cecece","gray"), hover_color=("#c0c0c0","#666666"), text_color=("black","white"), height=35)
+        botonSeleccionarImagen.place(relx=0.14, rely=0.63)
 
-        nombreArchivo = customtkinter.CTkEntry(
-            ventana_plantilla,
-            placeholder_text="(Opcional) Ej: Informe N°1",
-            width=200,
-            height=35)
-        nombreArchivo.place(relx=POS_NOMBREARCHIVO[0], rely=POS_NOMBREARCHIVO[1])
-        
-        botonSeleccionarImagen = customtkinter.CTkButton(ventana_plantilla,
-            text="Explorar Archivos",
-            command=seleccionarImagen,
-            fg_color=("#cecece","gray"),
-            hover_color=("#c0c0c0","#666666"),
-            text_color=("black","white"),
-            height=35)
-        botonSeleccionarImagen.place(relx=POS_BOTONIMAGEN[0], rely=POS_BOTONIMAGEN[1])
+        # --- Botones frame1 ---
+        customtkinter.CTkButton(frame1, text="Volver", command=ventana_plantilla.destroy,
+            fg_color="#ba6258", hover_color="#7f342d", text_color="white", height=35).place(relx=0.10, rely=0.83)
 
-        botonGenerarDoc = customtkinter.CTkButton(ventana_plantilla,
-                text="Generar Plantilla",             # Nombre del botón
-                command=lambda: generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura, seccion, botonSeleccionarImagen, nombreArchivo),# Función a ejecutar
-                fg_color="#437791",                 # Color del botón
-                hover_color="#386379",              # Color sobre el mouse
-                text_color="white",                   # Color del texto
-                height=55,                            # Alto del botón
-                width=190)                            # Ancho del botón
-        botonGenerarDoc.place(relx=POS_GENERARPLANTILLA[0], rely=POS_GENERARPLANTILLA[1])
-        
-        botonVolver = customtkinter.CTkButton(ventana_plantilla,
-                text="Volver",                     # Nombre del botón
-                command=ventana_plantilla.destroy, # Función a ejecutar
-                fg_color="#ba6258",              # Color del botón
-                hover_color="#7f342d",           # Color sobre el mouse
-                text_color="white",                # Color del texto
-                height=35)                         # Alto del botón
-        botonVolver.place(relx=POS_VOLVER[0], rely=POS_VOLVER[1])
-        
-        # --- Función para rellenar con datos de prueba ---
+        customtkinter.CTkButton(frame1, text="Datos de Prueba", command=lambda: rellenarPrueba(),
+            fg_color=("#cecece","gray"), hover_color=("#c0c0c0","#666666"), text_color=("black","white"), height=35).place(relx=0.38, rely=0.83)
+
+        customtkinter.CTkButton(frame1, text="Siguiente →", command=ir_a_pagina2,
+            fg_color="#437791", hover_color="#386379", text_color="white", height=35, width=150).place(relx=0.71, rely=0.83)
+
+        # ==================== FRAME 2 (Contenido + Exportar) ====================
+        frame2 = customtkinter.CTkFrame(ventana_plantilla, fg_color="transparent")
+        # frame2 empieza oculto, se muestra al presionar Siguiente
+
+        # --- Título frame2 ---
+        crearTexto(frame2, "Contenido del Documento", "Menlo", 28).place(relx=0.30, rely=0.06)
+
+        # --- Nombre del archivo ---
+        crearTexto(frame2, "Nombre del archivo", "Consolas", 16).place(relx=0.66, rely=0.50)
+        nombreArchivo = customtkinter.CTkEntry(frame2, placeholder_text="(Opcional) Ej: Informe N°1", width=200, height=35)
+        nombreArchivo.place(relx=0.66, rely=0.57)
+
+        # --- Botones frame2 ---
+        customtkinter.CTkButton(frame2, text="← Anterior", command=ir_a_pagina1,
+            fg_color=("#cecece","gray"), hover_color=("#c0c0c0","#666666"), text_color=("black","white"), height=35).place(relx=0.10, rely=0.83)
+
+        customtkinter.CTkButton(frame2, text="Generar Plantilla",
+            command=lambda: generarDoc(tituloDoc, subtituloDoc, estudiantes, profesor, asignatura, seccion, botonSeleccionarImagen, nombreArchivo),
+            fg_color="#437791", hover_color="#386379", text_color="white", height=55, width=190).place(relx=0.66, rely=0.75)
+
+        # --- Función datos de prueba ---
         def rellenarPrueba():
-            tituloDoc.delete(0, "end")        
+            tituloDoc.delete(0, "end")
             tituloDoc.insert(0, "Informe Gestión de Biblioteca")
-    
             subtituloDoc.delete(0, "end")
-            subtituloDoc.insert(0, "Etapa 1: Análisis de Requisitos del Sistema")
-    
+            subtituloDoc.insert(0, "Etapa 1: Análisis de Requisitos")
             estudiantes.delete(0, "end")
             estudiantes.insert(0, "Bayron Urrutia - José Ibarra")
-    
             profesor.delete(0, "end")
             profesor.insert(0, "Elliana Mallén González")
-    
             asignatura.delete(0, "end")
             asignatura.insert(0, "Ingeniería de Requisitos")
-    
             seccion.delete(0, "end")
             seccion.insert(0, "008D")
-            
             nombreArchivo.delete(0, "end")
             nombreArchivo.insert(0, "Informe_Biblioteca")
-        
-        # --- Botón datos de prueba (NUEVO) ---
-        botonPrueba = customtkinter.CTkButton(ventana_plantilla,
-            text="Datos de Prueba",        # NUEVO: botón para rellenar campos
-            command=rellenarPrueba,        # NUEVO: llama la función de prueba
-            fg_color=("#cecece", "gray"),  # NUEVO: mismo estilo que botones neutros
-            hover_color=("#c0c0c0", "#666666"), # NUEVO
-            text_color=("black", "white"), # NUEVO
-            height=35)                     # NUEVO
-        botonPrueba.place(relx=0.41, rely=0.75)  # NUEVO: posición debajo del volver
-        
+
     else:
         ventana_plantilla.focus()
         
