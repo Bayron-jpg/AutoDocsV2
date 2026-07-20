@@ -322,8 +322,15 @@ def crearPlantilla():
             titulo_indice.alignment = WD_ALIGN_PARAGRAPH.CENTER
             run_indice = titulo_indice.runs[0]
             estilo(run_indice, size=16, bold=True)
+            
             parrafo = doc.add_paragraph()
             run = parrafo.add_run()
+            
+            # --- Forzar Arial solo en este run (el campo del índice) ---
+            run.font.name = "Arial"
+            rFonts_campo = run._element.get_or_add_rPr().get_or_add_rFonts()
+            rFonts_campo.set(qn("w:eastAsia"), "Arial")
+            
             fldChar = OxmlElement("w:fldChar")
             fldChar.set(qn("w:fldCharType"), "begin")
             instrText = OxmlElement("w:instrText")
@@ -619,6 +626,15 @@ def crearPlantilla():
                 frame_sec, placeholder_text="Título de la sección", width=280, height=26
             )
             entry_titulo.grid(row=0, column=1, padx=5, pady=2)
+
+            # --- Enter en el título crea la siguiente sección y le da foco ---
+            def manejar_enter_titulo(event):
+                agregar_seccion()
+                if secciones:
+                    secciones[-1]["titulo"].focus_set()
+                return "break"  # evita que el Enter haga algo más (como activar otro botón)
+
+            entry_titulo.bind("<Return>", manejar_enter_titulo)
 
             subtitulos = []
 
