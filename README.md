@@ -32,7 +32,7 @@ Aplicación de escritorio para crear plantillas de documentos Word académicos y
 ```python AutoDocs.py```
 
 ### Opción 2: Ejecutable (.exe)
-Descargar la última versión portable de [AutoDocs](https://github.com/Bayron-jpg/AutoDocs/releases/download/V1.0.0/AutoDocs.exe).
+Descargar la versión portable de [AutoDocs](https://github.com/Bayron-jpg/AutoDocs/releases/download/V1.0.0/AutoDocs.exe).
 > ⚠️ **Nota:** Windows puede mostrar una advertencia de SmartScreen al ejecutar el `.exe` por primera vez, 
 > ya que no está firmado digitalmente. Es normal en apps independientes — 
 > haz clic en "Más información" → "Ejecutar de todas formas".
@@ -64,6 +64,9 @@ Descargar la última versión portable de [AutoDocs](https://github.com/Bayron-j
 <img width="489" height="635" alt="image" src="https://github.com/user-attachments/assets/44f104cd-c7e5-4ed0-837d-e9ded8fede2a" />
 <img width="488" height="637" alt="image" src="https://github.com/user-attachments/assets/31502c2e-f347-4af7-8cb7-dd6c8f0cdd71" />
 <img width="491" height="634" alt="image" src="https://github.com/user-attachments/assets/9669a9b0-5af9-4e49-915e-6a01e352c4ea" />
+
+## Licencia
+Este proyecto está bajo la licencia MIT. Ver [LICENSE](LICENSE) para más detalles.
 
 ## Autor
 Desarrollado por Bayron Urrutia.
