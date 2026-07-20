@@ -181,16 +181,26 @@ def crearPlantilla():
         run.font.size = Pt(size)
         run.font.color.rgb = RGBColor(0, 0, 0)
         run.bold = bold
+    
+    from docx.enum.style import WD_STYLE_TYPE
 
-    def agregar_linea(doc, etiqueta, valor, espacio_antes=0):
-        p = doc.add_paragraph()
-        run1 = p.add_run(etiqueta)
-        estilo(run1, bold=True)
-        run2 = p.add_run(valor)
-        estilo(run2)
-        p.paragraph_format.space_before = Pt(espacio_antes)
-        p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        return p
+    def estilo_indice(doc):
+        estilos_toc = ["TOC 1", "TOC 2", "TOC 3", "Hyperlink"]
+        for nombre in estilos_toc:
+            try:
+                est = doc.styles[nombre]
+            except KeyError:
+                tipo = WD_STYLE_TYPE.CHARACTER if nombre == "Hyperlink" else WD_STYLE_TYPE.PARAGRAPH
+                est = doc.styles.add_style(nombre, tipo)
+            est.font.name = "Arial"
+            est.font.color.rgb = RGBColor(0, 0, 0)
+            est.font.underline = False
+            rPr = est.element.get_or_add_rPr()
+            rFonts = rPr.find(qn("w:rFonts"))
+            if rFonts is None:
+                rFonts = OxmlElement("w:rFonts")
+                rPr.append(rFonts)
+            rFonts.set(qn("w:eastAsia"), "Arial")
 
     def generarDoc(
         tituloDoc,
@@ -306,9 +316,12 @@ def crearPlantilla():
 
         # === ÍNDICE (Opcional) ===
         if generarIndice.get():
-            doc.add_page_break()
+            estilo_indice(doc)
             titulo_indice = doc.add_heading("Índice", level=1)
+            titulo_indice.paragraph_format.page_break_before = True
             titulo_indice.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            run_indice = titulo_indice.runs[0]
+            estilo(run_indice, size=16, bold=True)
             parrafo = doc.add_paragraph()
             run = parrafo.add_run()
             fldChar = OxmlElement("w:fldChar")
@@ -330,8 +343,8 @@ def crearPlantilla():
             texto_sec = seccion_data["titulo"].get().strip()
             if not texto_sec:
                 continue
-            doc.add_page_break()
             heading = doc.add_heading(texto_sec, level=1)
+            heading.paragraph_format.page_break_before = True
             run_h = heading.runs[0]
             estilo(run_h, size=16, bold=True)
 
