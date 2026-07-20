@@ -30,7 +30,6 @@ ventana_acerca = None
 ventana_plantilla = None
 ventana_pdf = None
 
-
 # ------------------ Funciones ------------------
 def crearTexto(app, contenido, letra, tamano):
     label = customtkinter.CTkLabel(
@@ -44,7 +43,6 @@ def crearTexto(app, contenido, letra, tamano):
     )  # Color del texto
     return label
 
-
 def crearTextoColor(app, contenido, letra, tamano, colorTexto):
     label = customtkinter.CTkLabel(
         app,
@@ -57,7 +55,6 @@ def crearTextoColor(app, contenido, letra, tamano, colorTexto):
     )  # Color del texto
     return label
 
-
 def cambiar_tema():
     actual = customtkinter.get_appearance_mode()  # Obtener modo actual
     if actual == "Dark":
@@ -66,7 +63,6 @@ def cambiar_tema():
     else:
         customtkinter.set_appearance_mode("Dark")
         app.iconbitmap(ICON_DARK)
-
 
 # ------------------ Ventanas ------------------
 def menu():
@@ -167,7 +163,6 @@ def menu():
         "<Escape>", lambda e: salir()
     )  # Si pulsa Escape pide confirmación para cerrar la aplicación
     app.mainloop()  # Loop que mantiene la ventana abierta
-
 
 def crearPlantilla():
     global ventana_plantilla
@@ -754,7 +749,6 @@ def crearPlantilla():
     else:
         ventana_plantilla.focus()
 
-
 def convertirPdf():
     # --- Posiciones ---
     POS_TITULODOC = (0.18, 0.09)
@@ -902,7 +896,6 @@ def convertirPdf():
     else:
         ventana_pdf.focus()
 
-
 def acercaDe():
     # --- Posiciones ---
     POS_AUTODOCS = (0.35, 0.03)
@@ -972,7 +965,6 @@ def acercaDe():
 
     else:
         ventana_acerca.focus()
-
 
 # ------------------ Inicio ------------------
 menu()
