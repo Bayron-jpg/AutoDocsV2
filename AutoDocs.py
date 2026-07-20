@@ -609,8 +609,7 @@ def crearPlantilla():
 
             subtitulos = []
 
-            frame_subs = customtkinter.CTkFrame(frame_sec, fg_color="transparent")
-            frame_subs.grid(row=1, column=0, columnspan=4, padx=15, pady=2, sticky="w")
+            frame_subs = None
 
             def agregar_subtitulo():
                 nonlocal frame_subs
