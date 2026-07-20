@@ -30,7 +30,7 @@ Aplicación de escritorio para crear plantillas de documentos Word académicos y
 
 ### Opción 2: Ejecutable (.exe)
 
-Descargar la última versión portable [AutoDocs]([https://www.mediafire.com/file/tjjxjlxiaxs3zq2/AutoDocs.exe/file](https://github.com/Bayron-jpg/AutoDocs/releases/download/V1.0.0/AutoDocs.exe)).
+Descargar la última versión portable de [AutoDocs](https://github.com/Bayron-jpg/AutoDocs/releases/download/V1.0.0/AutoDocs.exe).
 
 ## Screenshots / Preview
 - Menu (Oscuro)
