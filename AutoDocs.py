@@ -550,16 +550,6 @@ def crearPlantilla():
 
         customtkinter.CTkButton(
             frame1,
-            text="Datos de Prueba",
-            command=lambda: rellenarPrueba(),
-            fg_color=("#cecece", "gray"),
-            hover_color=("#c0c0c0", "#666666"),
-            text_color=("black", "white"),
-            height=35,
-        ).place(relx=0.38, rely=0.83)
-
-        customtkinter.CTkButton(
-            frame1,
             text="Siguiente",
             command=ir_a_pagina2,
             fg_color="#437791",
@@ -760,23 +750,6 @@ def crearPlantilla():
             height=40,
             width=170,
         ).place(relx=0.69, rely=0.86)
-
-        # --- Función datos de prueba ---
-        def rellenarPrueba():
-            tituloDoc.delete(0, "end")
-            tituloDoc.insert(0, "Informe Gestión de Biblioteca")
-            subtituloDoc.delete(0, "end")
-            subtituloDoc.insert(0, "Etapa 1: Análisis de Requisitos")
-            estudiantes.delete(0, "end")
-            estudiantes.insert(0, "Bayron Urrutia - José Ibarra")
-            profesor.delete(0, "end")
-            profesor.insert(0, "Elliana Mallén González")
-            asignatura.delete(0, "end")
-            asignatura.insert(0, "Ingeniería de Requisitos")
-            seccion.delete(0, "end")
-            seccion.insert(0, "008D")
-            nombreArchivo.delete(0, "end")
-            nombreArchivo.insert(0, "Informe_Biblioteca")
 
     else:
         ventana_plantilla.focus()
