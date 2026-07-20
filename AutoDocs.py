@@ -344,15 +344,21 @@ def crearPlantilla():
                 estilo(run_s, size=14, bold=False)
 
         doc.save(ruta)
-        messagebox.showinfo(
+        deseaAbrir = messagebox.askyesno(
             "Documento generado",
             f"El documento se generó correctamente.\n\nRuta:\n{ruta}"
             + (
                 "\n\n💡 Para actualizar el índice, abra el documento y presione Ctrl+E / F9"
                 if generarIndice.get()
                 else ""
-            ),
+            )
+            + "\n\n¿Desea abrir el archivo?",
         )
+        if deseaAbrir:
+            try:
+                os.startfile(ruta)
+            except Exception as e:
+                messagebox.showerror("Error", f"No se pudo abrir el archivo:\n{e}")
 
     if ventana_plantilla is None or not ventana_plantilla.winfo_exists():
         # ------ Crear ventana ------
