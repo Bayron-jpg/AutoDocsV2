@@ -860,10 +860,17 @@ def convertirPdf():
                 archivoSeleccionado.configure(
                     text="Ningún archivo seleccionado"
                 )  # Vaciar label
-                messagebox.showinfo(
-                    "PDF Generado satisfactoriamente",
-                    f"PDF generado correctamente.\n\nGuardado en:\n{ruta}",
+                deseaAbrir = messagebox.askyesno(
+                    "PDF generado satisfactoriamente",
+                    f"PDF generado correctamente.\n\nGuardado en:\n{ruta}\n\n¿Desea abrir el archivo?",
                 )
+                if deseaAbrir:
+                    try:
+                        os.startfile(ruta)
+                    except Exception as e:
+                        messagebox.showerror(
+                            "Error", f"No se pudo abrir el archivo:\n{repr(e)}"
+                        )
 
             def error(e):
                 botonConvertir.configure(state="normal", text="Convertir a PDF")
