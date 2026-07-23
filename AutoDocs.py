@@ -132,28 +132,28 @@ def menu():
     # Botón Convertir a PDF
     botonConvertir = customtkinter.CTkButton(
         app,
-        text="Convertir a PDF",  # Texto del botón
+        text="Convertir Word a PDF",  # Texto del botón
         command=convertirPdf,  # Función a realizar
         fg_color="#e05a2b",  # Color del botón
         hover_color="#84371B",  # Color sobre el mouse
         text_color=("#f0f0f0", "white"),  # Color del texto
         width=220,  # Ancho del botón
         height=110,  # Alto del botón
-        font=("Menlo", 24),
+        font=("Menlo", 20),
     )  # Tipo de letra y tamaño del texto
     botonConvertir.place(relx=POS_CONVERTIR[0], rely=POS_CONVERTIR[1])
     
     # Botón Convertir a Word
     botonConvertirWord = customtkinter.CTkButton(
         app,
-        text="Convertir a Word",  # Texto del botón
+        text="Convertir PDF a Word",  # Texto del botón
         command=convertirWord,  # Función a realizar
         fg_color="#0833A2",  # Color del botón
         hover_color="#052574",  # Color sobre el mouse
         text_color=("#f0f0f0", "white"),  # Color del texto
         width=220,  # Ancho del botón
         height=110,  # Alto del botón
-        font=("Menlo", 24),
+        font=("Menlo", 20),
     )  # Tipo de letra y tamaño del texto
     botonConvertirWord.place(relx=POS_CONVERTIRWORD[0], rely=POS_CONVERTIRWORD[1])
 
