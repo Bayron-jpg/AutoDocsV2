@@ -7,6 +7,7 @@ Aplicación de escritorio para crear plantillas de documentos Word académicos y
 ## Características
 - Generación de plantillas Word con portada, índice automático y secciones/subtítulos dinámicos.
 - Conversión de documentos Word (.docx/.doc) a PDF.
+- Conversión de documentos PDF (.pdf) a Word.
 - Modo claro y oscuro.
 
 ## Requisitos
