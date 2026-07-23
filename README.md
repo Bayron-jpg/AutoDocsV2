@@ -20,6 +20,7 @@ Aplicación de escritorio para crear plantillas de documentos Word académicos y
 | CustomTKinter | Creación de la interfaz gráfica.            |
 | Python-docx   | Creación de documentos Word.                |
 | Docx2Pdf      | Transformar documentos Word a PDF.          |
+| Pdf2Docx      | Transformar documentos PDF a Word.          |
 | PyInstaller   | Compilar el proyecto en un ejecutable `.exe`|
 
 ## Instalación y ejecución
